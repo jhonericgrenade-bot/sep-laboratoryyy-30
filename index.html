@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ScholarTrack | Scholarship Monitoring</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <section class="auth-screen" id="auth-screen">
+    <div class="auth-panel">
+      <a class="auth-brand" href="#"><span class="brand-mark">S</span>Scholar<span>Track</span></a>
+      <p class="eyebrow">SCHOLARSHIP OFFICE PORTAL</p>
+      <h1 id="auth-title">Staff Login</h1>
+      <p class="auth-description" id="auth-description">Sign in to manage scholar records and academic compliance.</p>
+      <form id="login-form" class="auth-form">
+        <label>Email Address<input id="login-email" type="email" autocomplete="email" required placeholder="you@example.com" /></label>
+        <label>Password<input id="login-password" type="password" autocomplete="current-password" required placeholder="Your password" /></label>
+        <p class="auth-error" id="login-error"></p>
+        <button class="primary-button auth-submit" type="submit">Log In</button>
+      </form>
+      <form id="signup-form" class="auth-form hidden">
+        <label>Full Name<input id="signup-name" required autocomplete="name" placeholder="Your full name" /></label>
+        <label>Email Address<input id="signup-email" type="email" required autocomplete="email" placeholder="you@example.com" /></label>
+        <label>Password<input id="signup-password" type="password" required minlength="6" autocomplete="new-password" placeholder="At least 6 characters" /></label>
+        <p class="auth-error" id="signup-error"></p>
+        <button class="primary-button auth-submit" type="submit">Create Account</button>
+      </form>
+      <p class="auth-switch" id="auth-switch">No account yet? <button type="button" data-auth-mode="signup">Create one</button></p>
+      <p class="auth-setup" id="auth-setup"></p>
+    </div>
+    <div class="auth-side"><div><p class="eyebrow">STUDENT SUCCESS</p><h2>Every scholar,<br>on track.</h2><p>Centralized grade verification and scholarship compliance monitoring for your institution.</p></div></div>
+  </section>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#dashboard"><span class="brand-mark">S</span><span>Scholar<span>Track</span></span></a>
+      <p class="workspace">SCHOLARSHIP OFFICE</p>
+      <nav class="nav" aria-label="Main navigation">
+        <button class="nav-link active" data-page="dashboard"><span>▦</span> Dashboard</button>
+        <button class="nav-link" data-page="scholars"><span>♙</span> Scholars</button>
+        <button class="nav-link" data-page="programs"><span>◇</span> Scholarship Programs</button>
+        <button class="nav-link" data-page="submissions"><span>▤</span> Grade Submissions</button>
+        <button class="nav-link" data-page="compliance"><span>✓</span> Compliance</button>
+      </nav>
+      <div class="sidebar-user"><div class="avatar" id="user-initials">AS</div><div><strong id="user-name">Admin Staff</strong><small id="user-role">Scholarship Staff</small></div><button class="logout-button" id="logout-button" title="Log out">↪</button></div>
+    </aside>
+
+    <main class="content">
+      <header class="topbar"><button class="menu-toggle" aria-label="Toggle menu">☰</button><div><p class="eyebrow" id="page-eyebrow">OVERVIEW</p><h1 id="page-title">Dashboard</h1></div><div class="top-actions"><button class="icon-button" title="Notifications">♧</button><div class="avatar">AS</div></div></header>
+
+      <section class="page active" id="dashboard-page">
+        <div class="welcome"><div><h2>Good morning, Admin!</h2><p>Here is the latest overview of scholarship compliance.</p></div><button class="primary-button" data-open-modal="submission-modal">+ New Grade Submission</button></div>
+        <div class="stats" id="stats"></div>
+        <div class="two-columns">
+          <article class="panel"><div class="panel-heading"><div><h3>Recent Grade Submissions</h3><p>Latest academic records received</p></div><button class="text-button" data-page-link="submissions">View all</button></div><div class="table-wrap"><table><thead><tr><th>Scholar</th><th>Term</th><th>GWA</th><th>Status</th></tr></thead><tbody id="recent-submissions"></tbody></table></div></article>
+          <article class="panel status-card"><div class="panel-heading"><div><h3>Compliance Overview</h3><p>Verified submissions only</p></div></div><div id="compliance-overview"></div></article>
+        </div>
+      </section>
+
+      <section class="page" id="scholars-page">
+        <div class="page-toolbar"><div><h2>Scholar Records</h2><p>Manage student scholarship profiles and assignments.</p></div><button class="primary-button" data-open-modal="scholar-modal">+ Register Scholar</button></div>
+        <div class="filters"><label class="search"><span>⌕</span><input id="scholar-search" placeholder="Search student ID or name" /></label><select id="scholar-filter"><option value="">All scholarship programs</option></select><select id="status-filter"><option value="">All statuses</option><option>Active</option><option>Compliant</option><option>With Deficiency</option><option>Pending Submission</option></select></div>
+        <article class="panel"><div class="table-wrap"><table><thead><tr><th>Student ID</th><th>Scholar</th><th>Program</th><th>Scholarship</th><th>Status</th><th></th></tr></thead><tbody id="scholars-table"></tbody></table></div></article>
+      </section>
+
+      <section class="page" id="programs-page">
+        <div class="page-toolbar"><div><h2>Scholarship Programs</h2><p>Set academic requirements for each scholarship.</p></div><button class="primary-button" data-open-modal="program-modal">+ Add Program</button></div>
+        <div class="program-grid" id="program-cards"></div>
+      </section>
+
+      <section class="page" id="submissions-page">
+        <div class="page-toolbar"><div><h2>Grade Submissions</h2><p>Review semester academic records from scholars.</p></div><button class="primary-button" data-open-modal="submission-modal">+ New Submission</button></div>
+        <div class="filters"><select id="submission-filter"><option value="">All submission statuses</option><option>Pending</option><option>Verified</option><option>Returned</option></select></div>
+        <article class="panel"><div class="table-wrap"><table><thead><tr><th>Scholar</th><th>Academic Term</th><th>GWA</th><th>Units</th><th>Submitted</th><th>Status</th><th>Action</th></tr></thead><tbody id="submissions-table"></tbody></table></div></article>
+      </section>
+
+      <section class="page" id="compliance-page">
+        <div class="page-toolbar"><div><h2>Compliance Monitoring</h2><p>Academic evaluation of verified semester submissions.</p></div></div>
+        <div class="notice"><span>ⓘ</span><div><strong>Evaluation policy</strong><p>A lower GWA is better: a submission is compliant when GWA is at or below the program requirement, units meet the minimum, and the failing-grade policy is satisfied.</p></div></div>
+        <article class="panel"><div class="table-wrap"><table><thead><tr><th>Scholar</th><th>Scholarship Program</th><th>Academic Term</th><th>Evaluation</th><th>Reason</th></tr></thead><tbody id="compliance-table"></tbody></table></div></article>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="modal-backdrop"></div>
+  <dialog class="modal" id="scholar-modal"><form id="scholar-form"><div class="modal-header"><div><p class="eyebrow">SCHOLAR MANAGEMENT</p><h2 id="scholar-modal-title">Register Scholar</h2></div><button type="button" class="close-modal">×</button></div><input type="hidden" id="scholar-id" /><div class="form-grid"><label>Student ID <input required id="student-id" placeholder="e.g. 2026-0001" /></label><label>Full Name <input required id="scholar-name" placeholder="Last name, First name" /></label><label>Degree Program <input required id="degree-program" placeholder="e.g. BS Information Technology" /></label><label>Year Level <select required id="year-level"><option value="">Select year</option><option>1st Year</option><option>2nd Year</option><option>3rd Year</option><option>4th Year</option></select></label><label class="full-width">Scholarship Program <select required id="scholar-program"></select></label></div><p class="form-error" id="scholar-error"></p><div class="modal-footer"><button type="button" class="secondary-button close-modal">Cancel</button><button class="primary-button" type="submit">Save Scholar</button></div></form></dialog>
+
+  <dialog class="modal" id="program-modal"><form id="program-form"><div class="modal-header"><div><p class="eyebrow">PROGRAM CONFIGURATION</p><h2>Add Scholarship Program</h2></div><button type="button" class="close-modal">×</button></div><div class="form-grid"><label class="full-width">Program Name <input required id="program-name" placeholder="e.g. University Merit Scholarship" /></label><label>Required GWA <input required id="required-gwa" type="number" min="1" max="5" step="0.01" placeholder="e.g. 1.75" /></label><label>Minimum Units <input required id="min-units" type="number" min="0" placeholder="e.g. 18" /></label><label class="full-width check-label"><input id="allow-failing" type="checkbox" /> Failing grades are allowed for this scholarship</label></div><div class="modal-footer"><button type="button" class="secondary-button close-modal">Cancel</button><button class="primary-button" type="submit">Save Program</button></div></form></dialog>
+
+  <dialog class="modal" id="submission-modal"><form id="submission-form"><div class="modal-header"><div><p class="eyebrow">SEMESTER RECORD</p><h2>New Grade Submission</h2></div><button type="button" class="close-modal">×</button></div><div class="form-grid"><label class="full-width">Scholar <select required id="submission-scholar"></select></label><label>Academic Year <input required id="academic-year" placeholder="e.g. 2026–2027" /></label><label>Semester <select required id="semester"><option value="">Select semester</option><option>1st Semester</option><option>2nd Semester</option><option>Summer</option></select></label><label>GWA <input required id="submission-gwa" type="number" min="1" max="5" step="0.01" placeholder="1.00–5.00" /></label><label>Units Enrolled <input required id="units-enrolled" type="number" min="0" placeholder="e.g. 21" /></label><label>Failed Subjects <input required id="failed-subjects" type="number" min="0" value="0" /></label><label>Incomplete Subjects <input required id="incomplete-subjects" type="number" min="0" value="0" /></label></div><p class="hint">This will be recorded as <strong>Pending</strong> until verified by authorized staff.</p><div class="modal-footer"><button type="button" class="secondary-button close-modal">Cancel</button><button class="primary-button" type="submit">Submit Grades</button></div></form></dialog>
+  <div id="toast" role="status"></div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
